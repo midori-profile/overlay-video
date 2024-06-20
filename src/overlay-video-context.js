@@ -1,10 +1,5 @@
-/**
- * @file AnimationVideoContext
- * @author tianyu(tianyu05@baidu.com)
- */
-
 class AnimationVideoContext {
-    constructor(animationVideoId, slaveId, communicator) {
+    constructor(animationVideoId, communicator) {
         if (typeof animationVideoId !== 'string') {
             console.error(
                 'createAnimationVideoContext Parameter error: '
@@ -15,8 +10,7 @@ class AnimationVideoContext {
         }
         this.communicator = communicator;
         this.animationVideoId = animationVideoId;
-        this.slaveId = slaveId;
-        this.componentId = [slaveId, 'animation-video', animationVideoId].join('_');
+        this.componentId = `animation-video-${animationVideoId}`;
     }
 
     play() {
@@ -32,21 +26,15 @@ class AnimationVideoContext {
             console.error(`seek parameter error: position should be number instead of ${typeof position}`);
             return;
         }
-        this.invokeMethod('seek', {position});
+        this.invokeMethod('seek', { position });
     }
 
     invokeMethod(type, data) {
-        this.communicator.sendMessage(this.slaveId, {
+        this.communicator.sendMessage({
             type: `animation-video-${this.animationVideoId}`,
-            value: {api: type, params: data}
+            value: { api: type, params: data }
         });
     }
 }
 
-
-export const createAnimationVideo = (animationVideoId, slaveId, communicator) => new
-    AnimationVideoContext(
-        animationVideoId,
-        slaveId,
-        communicator
-    );
+export const createAnimationVideo = (animationVideoId, communicator) => new AnimationVideoContext(animationVideoId, communicator);
