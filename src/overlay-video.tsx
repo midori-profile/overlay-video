@@ -21,8 +21,8 @@ interface OverlayVideoProps {
 
 const OverlayVideo = forwardRef(({
     path,
-    resourceWidth,
-    resourceHeight,
+    resourceWidth = 800,
+    resourceHeight = 400,
     loop = false,
     autoplay = false,
     canvasStyle,

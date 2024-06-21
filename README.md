@@ -28,22 +28,18 @@ npm install @midori-profile/overlay-video
 
 ## Usage
 
-
 ### Props
 
-
-| Prop Name        | Type          | Default                  | Required | Description                                                                                                   |
-|------------------|---------------|--------------------------|----------|---------------------------------------------------------------------------------------------------------------|
-| path             | String        |                          | Yes      | Path to the animation resource. Supports both relative and remote URLs. For remote paths, ensure CORS headers. |
-| resourceWidth    | Number        |                       | No       | Width of the video resource used by the component (in px).                                                     |
-| resourceHeight   | Number        |                       | No       | Height of the video resource used by the component (in px).                                                    | 
-| loop             | Boolean       | false                    | No       | Whether the animation loops.                                                                                   | 
-| autoplay         | Boolean       | false                    | No       | Whether the animation plays automatically.                                                                     |
-| canvasStyle      | String        |  | No       | CSS styles for the animation canvas.                                                                           |
-| play       | Function      |                          | No       | Function to handle play action.                                                                                |
-| pause      | Function      |                          | No       | Function to handle pause action.                                                                               |
-| onerror      | Function      |                          | No       | Function to handle component‘s error                                                                            |
-
+| Prop Name        | Type          | Default                  | Required | Description                                                                                                   | Usage Example                                                                                                   |
+|------------------|---------------|--------------------------|----------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| path             | String        |                          | Yes      | Path to the animation resource. Supports both relative and remote URLs. For remote paths, ensure CORS headers. | `<OverlayVideo path={video} ... />`                                                                             |
+| resourceWidth    | Number        | 800                      | No       | Width of the video resource used by the component (in px).                                                     | `<OverlayVideo resourceWidth={1600} ... />`                                                                     |
+| resourceHeight   | Number        | 400                      | No       | Height of the video resource used by the component (in px).                                                    | `<OverlayVideo resourceHeight={800} ... />`                                                                     |
+| loop             | Boolean       | false                    | No       | Whether the animation loops.                                                                                   | `<OverlayVideo loop={true} ... />`                                                                              |
+| autoplay         | Boolean       | false                    | No       | Whether the animation plays automatically.                                                                     | `<OverlayVideo autoplay={true} ... />`                                                                          |
+| canvasStyle      | Object        | {}                       | No       | CSS styles for the animation canvas.                                                                           | `<OverlayVideo canvasStyle={{ width: '400px', height: '400px' }} ... />`                                        |
+| onerror          | Function      |                          | No       | Function to handle component errors.                                                                           | `<OverlayVideo onerror={handleError} ... />`                                                                    |
+| ref              | Object        |                          | No       | Reference to access play and pause methods.                                                                    | `<OverlayVideo ref={overlayVideoRef} ... /> overlayVideoRef.current?.play();  overlayVideoRef.current?.pause();` |
 
 ### Example Usage
 
