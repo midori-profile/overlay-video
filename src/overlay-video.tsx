@@ -20,12 +20,11 @@ interface OverlayVideoProps {
 }
 
 const OverlayVideo = forwardRef(({
-    id,
     path,
     resourceWidth,
     resourceHeight,
-    loop,
-    autoplay,
+    loop = false,
+    autoplay = false,
     canvasStyle,
     onerror
 }: OverlayVideoProps, ref) => {

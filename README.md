@@ -10,8 +10,6 @@ This is a high-performance web animation React component. For more details, refe
 
 ## Preview
 
-<img src="https://pbs.twimg.com/media/GQl6ANvakAElynU?format=png&name=900x900" alt="Preview Image" width="300" height="300">
-
 Check out the effect on this webpage: [overlay-video-preview](https://overlay-video-preview.vercel.app/)
 
 ## Installation
@@ -25,7 +23,7 @@ Add the following line to your `.npmrc` file:
 Then install the package:
 
 ```sh
-npm install @midori-profile/overlay-video@1.0.3
+npm install @midori-profile/overlay-video@1.0.1
 ```
 
 ## Usage
@@ -37,13 +35,14 @@ npm install @midori-profile/overlay-video@1.0.3
 | Prop Name        | Type          | Default                  | Required | Description                                                                                                   |
 |------------------|---------------|--------------------------|----------|---------------------------------------------------------------------------------------------------------------|
 | path             | String        |                          | Yes      | Path to the animation resource. Supports both relative and remote URLs. For remote paths, ensure CORS headers. |
-| resourceWidth    | Number        | 800                      | No       | Width of the video resource used by the component (in px).                                                     |
-| resourceHeight   | Number        | 400                      | No       | Height of the video resource used by the component (in px).                                                    | 
+| resourceWidth    | Number        |                       | No       | Width of the video resource used by the component (in px).                                                     |
+| resourceHeight   | Number        |                       | No       | Height of the video resource used by the component (in px).                                                    | 
 | loop             | Boolean       | false                    | No       | Whether the animation loops.                                                                                   | 
 | autoplay         | Boolean       | false                    | No       | Whether the animation plays automatically.                                                                     |
 | canvasStyle      | String        | width: 400px; height: 400px | No       | CSS styles for the animation canvas.                                                                           |
-| handlePlay       | Function      |                          | No       | Function to handle play action.                                                                                |
-| handlePause      | Function      |                          | No       | Function to handle pause action.                                                                               |
+| play       | Function      |                          | No       | Function to handle play action.                                                                                |
+| pause      | Function      |                          | No       | Function to handle pause action.                                                                               |
+| onerror      | Function      |                          | No       | Function to handle component‘s error                                                                            |
 
 
 ### Example Usage
@@ -87,25 +86,26 @@ return (
 
 ### Tips
 
-- **resourceHeight** and **resourceWidth** refer to the dimensions of the video resource (in px), not the animation component. The animation component's dimensions are controlled via CSS. To avoid distortion, set the animation component's aspect ratio to match the video resource's aspect ratio.
 - The final animation renders on a canvas, which can be styled using `canvasStyle`. For responsive design, you can set `canvasStyle="width:100%;"`.
+
+- **resourceHeight** and **resourceWidth** refer to the dimensions of the video resource (in px), not the animation component. The animation component's dimensions are controlled via CSS. To avoid distortion, set the animation component's aspect ratio to match the video resource's aspect ratio.
 
 - Handling Video in React
 
-To include video files in React, you can import them directly:
+  To include video files in React, you can import them directly:
 
-```js
-import video from './resource.mp4';
-```
+  ```js
+  import video from './resource.mp4';
+  ```
 
-In your `webpack.config.js`, add a rule to handle `.mp4` files:
+  In your `webpack.config.js`, add a rule to handle `.mp4` files:
 
-```js
-{
-  test: /\.mp4$/,
-  use: 'file-loader?name=videos/[name].[ext]',
-}
-```
+  ```js
+  {
+    test: /\.mp4$/,
+    use: 'file-loader?name=videos/[name].[ext]',
+  }
+  ```
 
 ### Example Project
 
