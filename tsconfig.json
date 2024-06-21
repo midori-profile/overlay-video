@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "target": "es6",                              // 将目标设为 ES6
+      "module": "esnext",                           // 使用 ESNext 模块系统
+      "moduleResolution": "node",                   // 模块解析策略
+      "strict": true,                               // 启用所有严格类型检查选项
+      "esModuleInterop": true,                      // 启用对 ES 模块的互操作性
+      "skipLibCheck": true,                         // 跳过库文件的类型检查
+      "forceConsistentCasingInFileNames": true,     // 强制一致的文件名大小写
+      "jsx": "react",                               // 启用 JSX 并将其编译为 React.createElement
+      "outDir": "./lib",                            // 编译输出目录
+      "rootDir": "./src",                           // 源文件根目录
+      "resolveJsonModule": true,                    // 允许从模块中导入 JSON 文件
+      "noImplicitAny": true,                        // 禁止隐式的 any 类型
+      "declaration": true,                          // 生成 .d.ts 声明文件
+      "declarationMap": true,                       // 生成声明文件的映射
+      "sourceMap": true                             // 生成源映射文件
+    },
+    "include": ["src/**/*"],                        // 包含 src 目录下的所有文件
+    "exclude": ["node_modules", "**/*.spec.ts"]     // 排除 node_modules 和测试文件
+  }
+  
