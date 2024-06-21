@@ -39,7 +39,7 @@ npm install @midori-profile/overlay-video@1.0.1
 | resourceHeight   | Number        |                       | No       | Height of the video resource used by the component (in px).                                                    | 
 | loop             | Boolean       | false                    | No       | Whether the animation loops.                                                                                   | 
 | autoplay         | Boolean       | false                    | No       | Whether the animation plays automatically.                                                                     |
-| canvasStyle      | String        | width: 400px; height: 400px | No       | CSS styles for the animation canvas.                                                                           |
+| canvasStyle      | String        |  | No       | CSS styles for the animation canvas.                                                                           |
 | play       | Function      |                          | No       | Function to handle play action.                                                                                |
 | pause      | Function      |                          | No       | Function to handle pause action.                                                                               |
 | onerror      | Function      |                          | No       | Function to handle component‘s error                                                                            |

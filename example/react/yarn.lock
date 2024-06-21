@@ -1120,10 +1120,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz#4fc56c15c580b9adb7dc3c333a134e540b44bfb1"
   integrity sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==
 
-"@midori-profile/overlay-video@1.0.1":
-  version "1.0.1"
-  resolved "https://npm.pkg.github.com/download/@midori-profile/overlay-video/1.0.1/697f862a7fa53209e21f1856395e7cac779ebcd1#697f862a7fa53209e21f1856395e7cac779ebcd1"
-  integrity sha512-RNVBMFxpqCP2lPK11V0QeTzr4kh6xHgKx3zzScEILca7AwPaEUucpBsEMTU93/lztPaFprXqcIbAmIFWE1dtcA==
+"@midori-profile/overlay-video@1.0.2":
+  version "1.0.2"
+  resolved "https://npm.pkg.github.com/download/@midori-profile/overlay-video/1.0.2/2c7f08ebc7b6b1b859c5a3337934b6e0bb3f0416#2c7f08ebc7b6b1b859c5a3337934b6e0bb3f0416"
+  integrity sha512-W0mEIcwggmGzmwmdIt8gpQKOZ7O7Fep3X6v40qbOf7raT7Va6mpTF0h+ixuTHJl5iYzhI71Et+KShOFvbp33Fw==
 
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"

@@ -1,6 +1,6 @@
 {
   "name": "@midori-profile/overlay-video",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React component for high performance web animations",
   "main": "lib/index.js",
   "scripts": {
