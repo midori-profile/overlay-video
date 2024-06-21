@@ -1,89 +1,134 @@
-export function createVertexBuffer(gl: WebGLRenderingContext, data?: Float32Array | number[]): WebGLBuffer | null {
-    const buffer = gl.createBuffer();
+// Buffer-related functions:
 
-    if (buffer && data) {
-        updateVertexBuffer(gl, buffer, data);
-    }
+export function createAndUpdateWebGLBuffer(
+  gl: WebGLRenderingContext,
+  data?: Float32Array | number[]
+): WebGLBuffer | null {
+  const buffer = gl.createBuffer();
 
-    return buffer;
+  if (buffer && data) {
+    bindDataToWebGLBuffer(gl, buffer, data);
+  }
+
+  return buffer;
 }
 
-export function updateVertexBuffer(gl: WebGLRenderingContext, buffer: WebGLBuffer, data: Float32Array | number[]): void {
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-
-    if (Array.isArray(data)) {
-        data = new Float32Array(data);
-    }
-
-    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+export function bindDataToWebGLBuffer(
+  gl: WebGLRenderingContext,
+  buffer: WebGLBuffer,
+  data: Float32Array | number[]
+): void {
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  const bufferData = Array.isArray(data) ? new Float32Array(data) : data;
+  gl.bufferData(gl.ARRAY_BUFFER, bufferData, gl.STATIC_DRAW);
 }
 
-export function createProgram(gl: WebGLRenderingContext, vsCode: string, fsCode: string): WebGLProgram | null {
-    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
-    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+export function bindBufferToShaderAttribute(
+  gl: WebGLRenderingContext,
+  program: WebGLProgram,
+  attribute: string,
+  buffer: WebGLBuffer,
+  itemSize: number
+): void {
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  const attributeLocation = gl.getAttribLocation(program, attribute);
 
-    if (!vertexShader || !fragmentShader) {
-        console.error('Error creating shaders');
-        return null;
-    }
+  if (attributeLocation === -1) {
+    console.error(`Attribute ${attribute} not found in shader program`);
+    return;
+  }
 
-    gl.shaderSource(vertexShader, vsCode);
-    gl.shaderSource(fragmentShader, fsCode);
-
-    gl.compileShader(vertexShader);
-    gl.compileShader(fragmentShader);
-
-    [vertexShader, fragmentShader].forEach(shader => {
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-            console.error(gl.getShaderInfoLog(shader));
-            return null;
-        }
-    });
-
-    const program = gl.createProgram();
-    if (!program) {
-        console.error('Error creating program');
-        return null;
-    }
-
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
-
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.error('Error linking program: ', gl.getProgramInfoLog(program));
-        return null;
-    }
-
-    return program;
+  gl.enableVertexAttribArray(attributeLocation);
+  gl.vertexAttribPointer(attributeLocation, itemSize, gl.FLOAT, false, 0, 0);
 }
 
-export function setVertexBuffer(gl: WebGLRenderingContext, program: WebGLProgram, symbol: string, buffer: WebGLBuffer, itemSize: number): void {
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+// Shader program creation
+export function createWebGLProgramFromShaders(
+  gl: WebGLRenderingContext,
+  vsCode: string,
+  fsCode: string
+): WebGLProgram | null {
+  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vsCode);
+  const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fsCode);
 
-    const posLoc = gl.getAttribLocation(program, symbol);
+  if (!vertexShader || !fragmentShader) {
+    return null;
+  }
 
-    if (posLoc === -1) {
-        console.error(`Attribute ${symbol} not found in shader program`);
-        return;
-    }
+  const program = gl.createProgram();
+  if (!program) {
+    console.error("Error creating program");
+    return null;
+  }
 
-    gl.enableVertexAttribArray(posLoc);
-    gl.vertexAttribPointer(posLoc, itemSize, gl.FLOAT, false, 0, 0);
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.error("Error linking program: ", gl.getProgramInfoLog(program));
+    return null;
+  }
+
+  return program;
 }
 
-export function createImageTexture(gl: WebGLRenderingContext): WebGLTexture | null {
-    const tex = gl.createTexture();
-    if (!tex) {
-        console.error('Error creating texture');
-        return null;
-    }
-    gl.bindTexture(gl.TEXTURE_2D, tex);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+function createShader(
+  gl: WebGLRenderingContext,
+  type: number,
+  source: string
+): WebGLShader | null {
+  const shader = gl.createShader(type);
+  if (!shader) {
+    console.error("Error creating shader");
+    return null;
+  }
 
-    gl.bindTexture(gl.TEXTURE_2D, null);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
 
-    return tex;
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    console.error(gl.getShaderInfoLog(shader));
+    return null;
+  }
+
+  return shader;
 }
+
+// Texture creation and setup
+export function createAndSetupWebGLTexture(
+  gl: WebGLRenderingContext
+): WebGLTexture | null {
+  const texture = gl.createTexture();
+  if (!texture) {
+    console.error("Error creating texture");
+    return null;
+  }
+
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+  gl.bindTexture(gl.TEXTURE_2D, null);
+
+  return texture;
+}
+
+export const FRAGMENT_SHADER_CODE = `precision highp float;
+varying vec2 textureCoordinates;
+uniform sampler2D tex;
+void main() {
+    float alpha = texture2D(tex, textureCoordinates * vec2(0.5, 1.0)).r;
+    vec3 rgb = texture2D(tex, textureCoordinates * vec2(0.5, 1.0) + vec2(0.5, 0.0)).rgb;
+    gl_FragColor = vec4(rgb, alpha);
+}`;
+
+export const VERTEX_SHADER_CODE = `
+varying vec2 textureCoordinates;
+attribute vec2 position;
+void main() {
+    textureCoordinates = (position + 1.0) * 0.5;
+    gl_Position = vec4(position, 0.0, 1.0);
+}`;
+
