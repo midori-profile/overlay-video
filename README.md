@@ -23,7 +23,7 @@ Add the following line to your `.npmrc` file:
 Then install the package:
 
 ```sh
-npm install @midori-profile/overlay-video@1.0.1
+npm install @midori-profile/overlay-video
 ```
 
 ## Usage
