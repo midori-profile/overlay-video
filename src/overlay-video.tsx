@@ -20,12 +20,11 @@ interface OverlayVideoProps {
 }
 
 const OverlayVideo = forwardRef(({
-    id,
     path,
     resourceWidth,
     resourceHeight,
-    loop,
-    autoplay,
+    loop = false,
+    autoplay = false,
     canvasStyle,
     onerror
 }: OverlayVideoProps, ref) => {
@@ -110,6 +109,7 @@ const OverlayVideo = forwardRef(({
             }
 
             gl.useProgram(program);
+            // @ts-ignore
             bindBufferToShaderAttribute(gl, program, 'position', posBuffer, 2);
             gl.uniform1i(texLoc, 0);
 
@@ -117,7 +117,7 @@ const OverlayVideo = forwardRef(({
             glRef.current = gl;
             posBufferRef.current = posBuffer;
             videoTextureRef.current = videoTexture;
-
+            // @ts-ignore
             frameDrawHandlerRef.current = prepareFrameDraw(gl, posBuffer, videoTexture, videoRef.current!);
         }
 
