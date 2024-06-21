@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import ReactDOM from "react-dom";
-import OverlayVideo from './test/index';
+import OverlayVideo from '@midori-profile/overlay-video';
 import video from './resource.mp4';
 
 const App = () => {

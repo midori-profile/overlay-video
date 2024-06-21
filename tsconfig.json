@@ -12,7 +12,8 @@
       "rootDir": "./src",                           // 源文件根目录
       "resolveJsonModule": true,                    // 允许从模块中导入 JSON 文件
       "noImplicitAny": true,                        // 禁止隐式的 any 类型
-      "declaration": true,                          // 生成 .d.ts 声明文件
+      "declaration": true,     
+      "declarationDir": "./lib",                     // 生成 .d.ts 声明文件
       "declarationMap": true,                       // 生成声明文件的映射
       "sourceMap": true                             // 生成源映射文件
     },
