@@ -1,4 +1,4 @@
-# overlay-video
+<img src="./readme/overlay-vid.svg" width="300" alt="">
 
 This is a high-performance web animation React component. For more details, refer to this article: [How to Achieve High-Performance Web Animations at Zero Development Cost](https://midori-portfolio.vercel.app/blog/web-animation).
 
